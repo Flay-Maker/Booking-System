@@ -28,6 +28,7 @@ class BookingController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string',
+            'gender'   => 'required|in:Male,Female,Other',
             'number' => ['required', 'regex:/^09\d{9}$/'], // Valid PH number
             'date' => [
               'required',
@@ -49,6 +50,7 @@ class BookingController extends Controller
         
         Booking::create([
             'fullname' => $request->fullname,
+            'gender'   => $request->gender,
             'number'   => $request->number,
             'date'     => $request->date,
             'time'     => $request->time,
@@ -62,6 +64,7 @@ class BookingController extends Controller
 {
     $request->validate([
         'fullname' => 'required|string',
+        'gender'   => 'required|in:Male,Female,Other',
         'number' => ['required', 'regex:/^09\d{9}$/'], // Valid PH number
         'date' => [
           'required',
@@ -83,6 +86,7 @@ class BookingController extends Controller
 
     Booking::create([
         'fullname' => $request->fullname,
+        'gender'   => $request->gender,
         'number' => $request->number,
         'date' => $request->date,
         'time' => $request->time,
@@ -105,6 +109,7 @@ class BookingController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string',
+            'gender'   => 'required|in:Male,Female,Other',
             'number' => ['required', 'regex:/^09\d{9}$/'], // Valid PH number
             'date' => [
               'required',
@@ -128,6 +133,7 @@ class BookingController extends Controller
 
         $booking->update([
             'fullname' => $request->fullname,
+            'gender'   => $request->gender,
             'number'   => $request->number,
             'date'     => $request->date,
             'time'     => $request->time,
@@ -140,9 +146,12 @@ class BookingController extends Controller
     // Delete booking
     public function destroy($id)
     {
-        $booking = Booking::findOrFail($id);
-        $booking->status = 'Deleted';
-        $booking->save();
+
+      Booking::findOrFail($id)->delete();
+      
+        // Booking::findOrFail($id)->delete();
+        // $booking->status = 'Deleted';
+        // $booking->save();
 
         return redirect()->route('admin.page')->with('success', 'Booking deleted.');
     }

@@ -52,6 +52,35 @@
         />
       </div>
 
+      <!-- Age -->
+{{-- <div>
+  <label class="block text-sm font-medium text-gray-700">Age</label>
+  <input
+    type="number"
+    name="age"
+    min="1"
+    max="120"
+    required
+    placeholder="Enter your age"
+    class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2 border focus:ring-blue-500 focus:border-blue-500"
+  />
+</div> --}}
+
+<!-- Gender -->
+<div>
+  <label class="block text-sm font-medium text-gray-700">Gender</label>
+  <select
+    name="gender"
+    required
+    class="mt-1 block w-full border-gray-300 rounded-md px-3 py-2 border focus:ring-blue-500 focus:border-blue-500"
+  >
+    <option value="" disabled selected>Select your gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
       <!-- Contact Number -->
       <div>
         <label class="block text-sm font-medium text-gray-700">Contact Number</label>

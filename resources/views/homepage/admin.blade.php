@@ -59,6 +59,7 @@
       <thead class="bg-blue-600 text-white">
         <tr>
           <th class="px-4 py-2 border">Full Name</th>
+          <th class="px-4 py-2 border">Gender</th>
           <th class="px-4 py-2 border">Number</th>
           <th class="px-4 py-2 border">Date</th>
           <th class="px-4 py-2 border">Time</th>
@@ -70,21 +71,24 @@
         @forelse($bookings as $booking)
           <tr class="border-t">
             <td class="px-4 py-2 border">{{ $booking->fullname }}</td>
+            <td class="px-4 py-2 border">{{ $booking->gender }}</td>
             <td class="px-4 py-2 border">{{ $booking->number }}</td>
             <td class="px-4 py-2 border">{{ \Carbon\Carbon::parse($booking->date)->format('F j, Y') }}</td>
             <td class="px-4 py-2 border">{{ \Carbon\Carbon::parse($booking->time)->format('h:i A') }}</td>
             <td class="px-4 py-2 border">{{ $booking->status }}</td>
             <td class="px-4 py-2 border">
               <button 
-                onclick='openEditModal(@json($booking))'
-                class="text-blue-600 hover:underline mr-2">
-                Edit
-              </button>
+              onclick='openEditModal(@json($booking))'
+              class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded mr-2 transition">
+              Edit
+            </button>
 
               <form action="{{ route('booking.destroy', $booking->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this booking?');">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-red-500 hover:underline">Delete</button>
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">
+                    Delete
+                </button>
               </form>
             </td>
           </tr>
@@ -113,6 +117,15 @@
 
         <label class="block text-sm font-medium mb-1">Full Name</label>
         <input type="text" name="fullname" id="editFullname" required class="w-full border px-3 py-2 rounded mb-3">
+
+                <!-- Gender -->
+        <label class="block text-sm font-medium mb-1">Gender</label>
+        <select name="gender" id="editGender" required class="w-full border px-3 py-2 rounded mb-3">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
 
         <label class="block text-sm font-medium mb-1">Contact Number</label>
         <input type="text" name="number" id="editNumber" required class="w-full border px-3 py-2 rounded mb-3">
@@ -162,6 +175,14 @@ class="w-full border px-3 py-2 rounded mb-3"
         <label class="block text-sm font-medium mb-1">Full Name</label>
         <input type="text" name="fullname" required class="w-full border px-3 py-2 rounded mb-3">
   
+        <label class="block text-sm font-medium mb-1">Gender</label>
+        <select name="gender" required class="w-full border px-3 py-2 rounded mb-3">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
         <label class="block text-sm font-medium mb-1">Contact Number</label>
         <input type="text" name="number" required class="w-full border px-3 py-2 rounded mb-3">
   
@@ -202,6 +223,7 @@ class="w-full border px-3 py-2 rounded mb-3"
   
       // Fill fields
       document.getElementById('editFullname').value = booking.fullname;
+      document.getElementById('editGender').value = booking.gender;
       document.getElementById('editNumber').value = booking.number;
   
       // Format date for input type="date"
